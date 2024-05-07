@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.2.2/echarts.min.js"></script>
+    <title>订单管理系统主页面</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+ <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../static/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../static/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../static/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+</div>
+
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="/" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary">主页面</h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0">建园模具订单管理系统</h6>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="/OrderList" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>订单列表</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>用户登录</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="/ProductionLogin" class="dropdown-item">生产部门登录</a>
+                            <a href="/ManagementLogin" class="dropdown-item">管理人员登录</a>
+                        </div>
+                    </div>
+                    <a href="/OrderChart" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>订单图表</a>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+ <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">订单查看</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="/OrderList" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">生产订单列表</h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="/OrderFinsh" class="dropdown-item">
+                                <div class="d-flex align-items-center">
+                                    <div class="ms-2">
+                                        <h6 class="fw-normal mb-0">历史订单列表</h6>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="/OrderChart" class="dropdown-item text-center">订单状态图表</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <span class="d-none d-lg-inline-flex">系统操作</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="/ManagementLogin" class="dropdown-item">管理人员登录</a>
+                            <a href="/ProductionLogin" class="dropdown-item">生产部门登录</a>
+                            <a href="/" class="dropdown-item">返回主页面</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+<!-- Blank Start -->
+        <div id="pieChart" style="width: 600px;height:400px;"></div>
+        <div id="barChart" style="width: 600px;height:400px;"></div>
+            <div id="barChart2" style="width: 600px;height:400px;"></div>
+            <script>
+// 获取div容器对象
+var pieChart = echarts.init(document.getElementById('pieChart'));
+
+// 构建饼状图的数据
+var pieData = [
+    {value: {{ Waiting_Orders }}, name: '待接收订单'},
+    {value: {{ Production_Orders }}, name: '生产中订单'},
+    {value: {{ sub_order }}, name: '今日已提交订单'}
+];
+
+// 构建饼状图的配置项
+var option = {
+    title : {
+        text: '今日订单状况',
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['Waiting Orders','Production Orders','Completed Orders']
+    },
+    series : [
+        {
+            name: 'Orders Status',
+            type: 'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data: pieData,
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+};
+
+// 使用刚指定的配置项和数据显示图表
+pieChart.setOption(option);
+</script>
+<script>
+    // JavaScript 文件
+// 获取柱状图的 div 容器对象
+var barChart = echarts.init(document.getElementById('barChart'));
+
+// 定义柱状图的 x 轴数据
+var xAxisData = ['前日接收订单','昨日接收订单', '今日接收订单'];
+
+// 定义柱状图的 y 轴数据
+{#var yAxisData = [{{ receive_order_yyesterday }}, {{ receive_order_yesterday }},{{ receive_order }}];#}
+var yAxisData = [6, 5, 2];
+// 构建柱状图的配置项
+var option = {
+    title: {
+        text: '接收订单数据',
+        subtext: '近三日'
+    },
+    tooltip: {},
+    legend: {
+        data: ['Orders'],
+        left: 'right'
+    },
+    xAxis: {
+        data: xAxisData
+    },
+    yAxis: {},
+    series: [{
+        name: 'Orders',
+        type: 'bar',
+        data: yAxisData,
+        itemStyle: {
+            normal: {
+                // 柱状图颜色
+                color: '#66CCFF'
+            }
+        }
+    }]
+};
+
+// 设置柱状图的配置项
+barChart.setOption(option);
+
+</script>
+<script>
+    // JavaScript 文件
+// 获取柱状图的 div 容器对象
+var barChart = echarts.init(document.getElementById('barChart2'));
+
+// 定义柱状图的 x 轴数据
+var xAxisData = ['前日提交订单','昨日提交订单','今日提交订单'];
+
+// 定义柱状图的 y 轴数据
+{#var yAxisData = [ {{ sub_order2 }}, {{ sub_order1 }},{{ sub_order }}];#}
+var yAxisData = [{{ 5 }}, {{ 8 }}, {{ 0 }}];
+// 构建柱状图的配置项
+var option = {
+    title: {
+        text: '提交订单数据图',
+        subtext: '近三日'
+    },
+    tooltip: {},
+    legend: {
+        data: ['Orders'],
+        left: 'right'
+    },
+    xAxis: {
+        data: xAxisData
+    },
+    yAxis: {},
+    series: [{
+        name: 'Orders',
+        type: 'bar',
+        data: yAxisData,
+        itemStyle: {
+            normal: {
+                // 柱状图颜色
+                color: '#66CCFF'
+            }
+        }
+    }]
+};
+
+// 设置柱状图的配置项
+barChart.setOption(option);
+
+</script>
+<!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            &copy; <a href="#"></a>欢迎使用本系统.
+                        </div>
+                        <div class="col-12 col-sm-6 text-center text-sm-end">
+                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                            Designed By <a href="/">Wu hao</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../static/main.js"></script>
+</body>
+</html>
